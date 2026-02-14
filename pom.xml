@@ -1,94 +1,130 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.gateway</groupId>
   <artifactId>gatewayaas</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>gatewayaas</name>
-  <url>http://maven.apache.org</url>
+  <name>GatewayaaS</name>
+  <description>Configurable API Gateway with Netty</description>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <netty.version>4.1.104.Final</netty.version>
+    <postgresql.version>42.7.1</postgresql.version>
+    <hikaricp.version>5.1.0</hikaricp.version>
+    <gson.version>2.10.1</gson.version>
+    <jjwt.version>0.12.3</jjwt.version>
+    <bcrypt.version>0.4</bcrypt.version>
+    <flyway.version>10.4.1</flyway.version>
+    <logback.version>1.4.14</logback.version>
+    <junit.version>5.10.1</junit.version>
   </properties>
 
   <dependencies>
-
+    <!-- Netty -->
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-all</artifactId>
-      <version>4.1.119.Final</version>
-      <scope>compile</scope>
+      <version>${netty.version}</version>
     </dependency>
 
+    <!-- Database -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.7.8</version>
-      <scope>compile</scope>
+      <version>${postgresql.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
-      <version>5.1.0</version>
-      <scope>compile</scope>
+      <version>${hikaricp.version}</version>
     </dependency>
 
+    <!-- JSON -->
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>2.10.1</version>
+      <version>${gson.version}</version>
     </dependency>
 
+    <!-- JWT -->
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-api</artifactId>
-      <version>0.12.5</version>
+      <version>${jjwt.version}</version>
     </dependency>
-
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-impl</artifactId>
-      <version>0.12.5</version>
+      <version>${jjwt.version}</version>
       <scope>runtime</scope>
     </dependency>
-
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-gson</artifactId>
-      <version>0.12.5</version>
+      <version>${jjwt.version}</version>
       <scope>runtime</scope>
     </dependency>
 
+    <!-- Password Hashing -->
     <dependency>
       <groupId>org.mindrot</groupId>
       <artifactId>jbcrypt</artifactId>
-      <version>0.4</version>
+      <version>${bcrypt.version}</version>
     </dependency>
 
+    <!-- Database Migrations -->
     <dependency>
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
-      <version>10.12.0</version>
+      <version>${flyway.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-database-postgresql</artifactId>
+      <version>${flyway.version}</version>
     </dependency>
 
+    <!-- Logging -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+
+    <!-- Testing -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.8.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
-
-      <!-- Compiler -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -99,7 +135,21 @@
         </configuration>
       </plugin>
 
-      <!-- Create executable FAT jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.gateway.Main</mainClass>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -116,13 +166,26 @@
                   <mainClass>com.gateway.Main</mainClass>
                 </transformer>
               </transformers>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
             </configuration>
           </execution>
         </executions>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.3</version>
+      </plugin>
     </plugins>
   </build>
-
-
 </project>
