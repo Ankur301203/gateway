@@ -1,0 +1,363 @@
+2026-02-14 23:21:21.872 [main] INFO  com.gateway.Main - Starting GatewayaaS...
+2026-02-14 23:21:21.874 [main] INFO  com.gateway.Main - Initializing database connection pool
+2026-02-14 23:21:21.875 [main] INFO  c.g.database.DatabaseConnectionPool - Initializing database connection pool
+2026-02-14 23:21:21.883 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-14 23:21:22.068 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2e1d27ba
+2026-02-14 23:21:22.069 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-14 23:21:22.069 [main] INFO  c.g.database.DatabaseConnectionPool - Database connection pool initialized successfully
+2026-02-14 23:21:22.069 [main] INFO  c.g.database.DatabaseConnectionPool - Running database migrations
+2026-02-14 23:21:22.071 [main] INFO  c.gateway.database.ManualMigrations - Running database migrations
+2026-02-14 23:21:22.071 [main] INFO  c.gateway.database.ManualMigrations - Creating UUID extension
+2026-02-14 23:21:22.073 [main] INFO  c.gateway.database.ManualMigrations - Creating users table
+2026-02-14 23:21:22.082 [main] INFO  c.gateway.database.ManualMigrations - Creating gateways table
+2026-02-14 23:21:22.089 [main] INFO  c.gateway.database.ManualMigrations - Creating routes table
+2026-02-14 23:21:22.093 [main] INFO  c.gateway.database.ManualMigrations - Creating route_targets table
+2026-02-14 23:21:22.098 [main] INFO  c.gateway.database.ManualMigrations - Creating request_logs table
+2026-02-14 23:21:22.102 [main] INFO  c.gateway.database.ManualMigrations - Database migrations completed successfully
+2026-02-14 23:21:22.102 [main] INFO  c.g.database.DatabaseConnectionPool - Database migrations completed successfully
+2026-02-14 23:21:22.111 [main] INFO  com.gateway.Main - Database initialized successfully
+2026-02-14 23:21:22.112 [main] INFO  com.gateway.Main - Starting background services
+2026-02-14 23:21:22.344 [main] INFO  c.gateway.service.HealthCheckService - Health check service started (interval: 30s, timeout: 5s)
+2026-02-14 23:21:22.350 [main] INFO  com.gateway.service.LogService - Log service started (batch size: 100, flush interval: 5s)
+2026-02-14 23:21:22.351 [main] INFO  com.gateway.Main - Background services started successfully
+2026-02-14 23:21:22.354 [main] INFO  com.gateway.Main - All systems ready, starting HTTP server
+2026-02-14 23:21:22.480 [main] INFO  com.gateway.netty.NettyServer - Starting Netty server on port 8080
+2026-02-14 23:21:22.481 [main] INFO  com.gateway.netty.NettyServer - Boss threads: 1, Worker threads: default
+2026-02-14 23:21:22.529 [main] INFO  com.gateway.netty.NettyServer - Gateway server started successfully on port 8080
+2026-02-14 23:22:50.976 [nioEventLoopGroup-3-2] INFO  com.gateway.netty.RouterHandler - POST /api/v1/auth/register
+2026-02-14 23:22:51.324 [nioEventLoopGroup-3-2] INFO  c.gateway.repository.UserRepository - Created user: ankur@gmail.com
+2026-02-14 23:22:51.325 [nioEventLoopGroup-3-2] INFO  c.g.n.handlers.auth.RegisterHandler - User registered: ankur@gmail.com
+2026-02-14 23:23:41.523 [nioEventLoopGroup-3-4] INFO  com.gateway.netty.RouterHandler - POST /api/v1/auth/login
+2026-02-14 23:23:41.853 [nioEventLoopGroup-3-4] INFO  com.gateway.service.AuthService - User logged in: ankur@gmail.com
+2026-02-14 23:23:41.853 [nioEventLoopGroup-3-4] INFO  c.g.netty.handlers.auth.LoginHandler - User logged in: ankur@gmail.com
+2026-02-14 23:25:38.706 [nioEventLoopGroup-3-6] INFO  com.gateway.netty.RouterHandler - POST /api/v1/gateways
+2026-02-14 23:26:30.217 [nioEventLoopGroup-3-8] INFO  com.gateway.netty.RouterHandler - POST /api/v1/gateways
+2026-02-14 23:26:30.249 [nioEventLoopGroup-3-8] INFO  c.g.repository.GatewayRepository - Created gateway: d914aa60-0cbc-4b7c-8348-219736db7b51 for user: 1332017a-96cc-4088-9b0e-c9f267098c4f
+2026-02-14 23:26:30.249 [nioEventLoopGroup-3-8] INFO  c.g.n.h.gateway.CreateGatewayHandler - Gateway created: d914aa60-0cbc-4b7c-8348-219736db7b51 by user: 1332017a-96cc-4088-9b0e-c9f267098c4f
+2026-02-14 23:28:05.660 [nioEventLoopGroup-3-2] INFO  com.gateway.netty.RouterHandler - GET /api/v1/gateways
+2026-02-14 23:28:55.386 [nioEventLoopGroup-3-4] INFO  com.gateway.netty.RouterHandler - GET /api/v1/gateways
+2026-02-14 23:31:46.773 [nioEventLoopGroup-3-6] INFO  com.gateway.netty.RouterHandler - POST /api/v1/gateways/d914aa60-0cbc-4b7c-8348-219736db7b51/routes
+2026-02-14 23:31:46.805 [nioEventLoopGroup-3-6] INFO  c.gateway.repository.RouteRepository - Created route: GET /api/test for gateway: d914aa60-0cbc-4b7c-8348-219736db7b51
+2026-02-14 23:31:46.805 [nioEventLoopGroup-3-6] INFO  c.g.n.h.route.CreateRouteHandler - Route created: GET /api/test for gateway: d914aa60-0cbc-4b7c-8348-219736db7b51
+2026-02-14 23:34:31.490 [nioEventLoopGroup-3-8] INFO  com.gateway.netty.RouterHandler - POST /api/v1/routes/bd6f7ed7-f583-4368-8342-937677bc0bf3/targets
+2026-02-14 23:34:31.502 [nioEventLoopGroup-3-8] INFO  c.g.repository.TargetRepository - Created target: https://httpbin.org for route: bd6f7ed7-f583-4368-8342-937677bc0bf3
+2026-02-14 23:34:31.503 [nioEventLoopGroup-3-8] INFO  c.g.n.h.route.AddTargetHandler - Target added: https://httpbin.org for route: bd6f7ed7-f583-4368-8342-937677bc0bf3
+2026-02-14 23:34:52.358 [pool-1-thread-4] INFO  c.gateway.service.HealthCheckService - Performing health checks on 1 targets
+2026-02-14 23:34:54.675 [nioEventLoopGroup-3-2] INFO  com.gateway.netty.RouterHandler - POST /api/v1/routes/bd6f7ed7-f583-4368-8342-937677bc0bf3/targets
+2026-02-14 23:34:54.680 [nioEventLoopGroup-3-2] INFO  c.g.repository.TargetRepository - Created target: https://postman-echo.com for route: bd6f7ed7-f583-4368-8342-937677bc0bf3
+2026-02-14 23:34:54.680 [nioEventLoopGroup-3-2] INFO  c.g.n.h.route.AddTargetHandler - Target added: https://postman-echo.com for route: bd6f7ed7-f583-4368-8342-937677bc0bf3
+2026-02-14 23:35:12.545 [nioEventLoopGroup-3-4] INFO  com.gateway.netty.RouterHandler - POST /api/v1/routes/bd6f7ed7-f583-4368-8342-937677bc0bf3/targets
+2026-02-14 23:35:12.559 [nioEventLoopGroup-3-4] INFO  c.g.repository.TargetRepository - Created target: https://jsonplaceholder.typicode.com for route: bd6f7ed7-f583-4368-8342-937677bc0bf3
+2026-02-14 23:35:12.559 [nioEventLoopGroup-3-4] INFO  c.g.n.h.route.AddTargetHandler - Target added: https://jsonplaceholder.typicode.com for route: bd6f7ed7-f583-4368-8342-937677bc0bf3
+2026-02-14 23:35:22.346 [pool-1-thread-4] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:35:41.691 [nioEventLoopGroup-3-6] INFO  com.gateway.netty.RouterHandler - GET /api/v1/routes/$ROUTE_ID/targets
+2026-02-14 23:35:52.347 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:35:52.670 [pool-2-thread-5] INFO  c.g.repository.TargetRepository - Updated target 79aae457-54c2-4440-8eeb-731e42b76ab6 health status to: unhealthy
+2026-02-14 23:35:52.670 [pool-2-thread-5] WARN  c.gateway.service.HealthCheckService - Target marked unhealthy after 3 failures: https://httpbin.org
+2026-02-14 23:35:54.756 [nioEventLoopGroup-3-8] INFO  com.gateway.netty.RouterHandler - GET /api/v1/routes/bd6f7ed7-f583-4368-8342-937677bc0bf3/targets
+2026-02-14 23:36:22.346 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:36:22.376 [pool-2-thread-8] INFO  c.g.repository.TargetRepository - Updated target adf48d99-c059-4484-bebb-31a5aa85a289 health status to: unhealthy
+2026-02-14 23:36:22.376 [pool-2-thread-8] WARN  c.gateway.service.HealthCheckService - Target marked unhealthy after 3 failures: https://jsonplaceholder.typicode.com
+2026-02-14 23:36:22.693 [pool-2-thread-10] INFO  c.g.repository.TargetRepository - Updated target cc7267fa-dc69-4d4e-991a-56c5254cc3fb health status to: unhealthy
+2026-02-14 23:36:22.694 [pool-2-thread-10] WARN  c.gateway.service.HealthCheckService - Target marked unhealthy after 3 failures: https://postman-echo.com
+2026-02-14 23:36:52.346 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:37:11.857 [nioEventLoopGroup-3-2] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/api/test
+2026-02-14 23:37:11.861 [nioEventLoopGroup-3-2] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/api/test, method=GET
+2026-02-14 23:37:11.863 [nioEventLoopGroup-3-2] WARN  com.gateway.service.ProxyService - No healthy targets for route=bd6f7ed7-f583-4368-8342-937677bc0bf3
+2026-02-14 23:37:22.346 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:37:44.879 [nioEventLoopGroup-3-4] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/api/test
+2026-02-14 23:37:44.880 [nioEventLoopGroup-3-4] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/api/test, method=GET
+2026-02-14 23:37:44.881 [nioEventLoopGroup-3-4] WARN  com.gateway.service.ProxyService - No healthy targets for route=bd6f7ed7-f583-4368-8342-937677bc0bf3
+2026-02-14 23:37:52.346 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:38:22.345 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:38:52.346 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:38:58.387 [nioEventLoopGroup-3-6] INFO  com.gateway.netty.RouterHandler - GET /api/v1/routes/bd6f7ed7-f583-4368-8342-937677bc0bf3/targets
+2026-02-14 23:39:22.345 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:39:52.349 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:40:22.356 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:40:52.346 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:40:52.397 [pool-2-thread-7] INFO  c.g.repository.TargetRepository - Updated target adf48d99-c059-4484-bebb-31a5aa85a289 health status to: unhealthy
+2026-02-14 23:40:52.398 [pool-2-thread-7] WARN  c.gateway.service.HealthCheckService - Target marked unhealthy after 3 failures: https://jsonplaceholder.typicode.com
+2026-02-14 23:40:52.698 [pool-2-thread-5] INFO  c.g.repository.TargetRepository - Updated target 79aae457-54c2-4440-8eeb-731e42b76ab6 health status to: unhealthy
+2026-02-14 23:40:52.698 [pool-2-thread-5] WARN  c.gateway.service.HealthCheckService - Target marked unhealthy after 3 failures: https://httpbin.org
+2026-02-14 23:40:52.700 [pool-2-thread-6] INFO  c.g.repository.TargetRepository - Updated target cc7267fa-dc69-4d4e-991a-56c5254cc3fb health status to: unhealthy
+2026-02-14 23:40:52.702 [pool-2-thread-6] WARN  c.gateway.service.HealthCheckService - Target marked unhealthy after 3 failures: https://postman-echo.com
+2026-02-14 23:41:22.346 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:41:48.811 [Thread-0] INFO  com.gateway.Main - Shutdown signal received, initiating graceful shutdown
+2026-02-14 23:41:48.812 [Thread-0] INFO  com.gateway.netty.NettyServer - Shutting down Netty server
+2026-02-14 23:41:48.813 [Thread-0] INFO  com.gateway.netty.NettyServer - Netty server shut down successfully
+2026-02-14 23:41:48.814 [Thread-0] INFO  c.gateway.service.HealthCheckService - Stopping health check service
+2026-02-14 23:41:48.816 [main] INFO  com.gateway.netty.NettyServer - Shutting down Netty server
+2026-02-14 23:41:48.819 [main] INFO  com.gateway.netty.NettyServer - Netty server shut down successfully
+2026-02-14 23:41:48.823 [Thread-0] INFO  c.gateway.service.HealthCheckService - Health check service stopped
+2026-02-14 23:41:48.823 [Thread-0] INFO  com.gateway.service.LogService - Stopping log service
+2026-02-14 23:41:48.825 [Thread-0] INFO  com.gateway.service.LogService - Log service stopped
+2026-02-14 23:41:48.826 [Thread-0] INFO  c.g.database.DatabaseConnectionPool - Closing database connection pool
+2026-02-14 23:41:48.830 [Thread-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-14 23:41:48.852 [Thread-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-14 23:41:48.852 [Thread-0] INFO  com.gateway.Main - Graceful shutdown completed
+2026-02-14 23:42:06.717 [main] INFO  com.gateway.Main - Starting GatewayaaS...
+2026-02-14 23:42:06.719 [main] INFO  com.gateway.Main - Initializing database connection pool
+2026-02-14 23:42:06.720 [main] INFO  c.g.database.DatabaseConnectionPool - Initializing database connection pool
+2026-02-14 23:42:06.725 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-14 23:42:06.937 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2e1d27ba
+2026-02-14 23:42:06.938 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-14 23:42:06.938 [main] INFO  c.g.database.DatabaseConnectionPool - Database connection pool initialized successfully
+2026-02-14 23:42:06.938 [main] INFO  c.g.database.DatabaseConnectionPool - Running database migrations
+2026-02-14 23:42:06.939 [main] INFO  c.gateway.database.ManualMigrations - Running database migrations
+2026-02-14 23:42:06.940 [main] INFO  c.gateway.database.ManualMigrations - Creating UUID extension
+2026-02-14 23:42:06.943 [main] INFO  c.gateway.database.ManualMigrations - Creating users table
+2026-02-14 23:42:06.951 [main] INFO  c.gateway.database.ManualMigrations - Creating gateways table
+2026-02-14 23:42:06.956 [main] INFO  c.gateway.database.ManualMigrations - Creating routes table
+2026-02-14 23:42:06.960 [main] INFO  c.gateway.database.ManualMigrations - Creating route_targets table
+2026-02-14 23:42:06.965 [main] INFO  c.gateway.database.ManualMigrations - Creating request_logs table
+2026-02-14 23:42:06.967 [main] INFO  c.gateway.database.ManualMigrations - Database migrations completed successfully
+2026-02-14 23:42:06.967 [main] INFO  c.g.database.DatabaseConnectionPool - Database migrations completed successfully
+2026-02-14 23:42:06.974 [main] INFO  com.gateway.Main - Database initialized successfully
+2026-02-14 23:42:06.974 [main] INFO  com.gateway.Main - Starting background services
+2026-02-14 23:42:07.148 [main] INFO  c.gateway.service.HealthCheckService - Health check service started (interval: 30s, timeout: 5s)
+2026-02-14 23:42:07.150 [main] INFO  com.gateway.service.LogService - Log service started (batch size: 100, flush interval: 5s)
+2026-02-14 23:42:07.150 [main] INFO  com.gateway.Main - Background services started successfully
+2026-02-14 23:42:07.152 [main] INFO  com.gateway.Main - All systems ready, starting HTTP server
+2026-02-14 23:42:07.158 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:42:07.230 [main] INFO  com.gateway.netty.NettyServer - Starting Netty server on port 8080
+2026-02-14 23:42:07.233 [main] INFO  com.gateway.netty.NettyServer - Boss threads: 1, Worker threads: default
+2026-02-14 23:42:07.314 [main] INFO  com.gateway.netty.NettyServer - Gateway server started successfully on port 8080
+2026-02-14 23:42:07.892 [pool-2-thread-3] INFO  c.g.repository.TargetRepository - Updated target cc7267fa-dc69-4d4e-991a-56c5254cc3fb health status to: healthy
+2026-02-14 23:42:07.892 [pool-2-thread-3] INFO  c.gateway.service.HealthCheckService - Target recovered: https://postman-echo.com
+2026-02-14 23:42:08.210 [pool-2-thread-1] INFO  c.g.repository.TargetRepository - Updated target adf48d99-c059-4484-bebb-31a5aa85a289 health status to: healthy
+2026-02-14 23:42:08.210 [pool-2-thread-1] INFO  c.gateway.service.HealthCheckService - Target recovered: https://jsonplaceholder.typicode.com
+2026-02-14 23:42:09.096 [pool-2-thread-2] INFO  c.g.repository.TargetRepository - Updated target 79aae457-54c2-4440-8eeb-731e42b76ab6 health status to: healthy
+2026-02-14 23:42:09.096 [pool-2-thread-2] INFO  c.gateway.service.HealthCheckService - Target recovered: https://httpbin.org
+2026-02-14 23:42:37.153 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:42:42.175 [nioEventLoopGroup-3-2] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/api/test
+2026-02-14 23:42:42.178 [nioEventLoopGroup-3-2] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/api/test, method=GET
+2026-02-14 23:42:42.184 [nioEventLoopGroup-3-2] INFO  com.gateway.service.ProxyService - Forwarding GET /api/test to https://httpbin.org
+2026-02-14 23:42:43.488 [nioEventLoopGroup-3-2] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /api/test -> 404 (1309ms)
+2026-02-14 23:42:43.489 [nioEventLoopGroup-3-2] WARN  c.g.n.handlers.proxy.ProxyHandler - Bad request for gateway d914aa60-0cbc-4b7c-8348-219736db7b51: a header name can only contain "token" characters, but found invalid character 0x3a at index 0 of header ':status'.
+2026-02-14 23:43:07.151 [pool-1-thread-2] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:43:09.220 [nioEventLoopGroup-3-3] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/api/test
+2026-02-14 23:43:09.221 [nioEventLoopGroup-3-3] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/api/test, method=GET
+2026-02-14 23:43:09.225 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Forwarding GET /api/test to https://httpbin.org
+2026-02-14 23:43:10.952 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /api/test -> 404 (1730ms)
+2026-02-14 23:43:10.953 [nioEventLoopGroup-3-3] WARN  c.g.n.handlers.proxy.ProxyHandler - Bad request for gateway d914aa60-0cbc-4b7c-8348-219736db7b51: a header name can only contain "token" characters, but found invalid character 0x3a at index 0 of header ':status'.
+2026-02-14 23:43:37.150 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:44:07.152 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:44:27.076 [Thread-0] INFO  com.gateway.Main - Shutdown signal received, initiating graceful shutdown
+2026-02-14 23:44:27.077 [Thread-0] INFO  com.gateway.netty.NettyServer - Shutting down Netty server
+2026-02-14 23:44:27.080 [Thread-0] INFO  com.gateway.netty.NettyServer - Netty server shut down successfully
+2026-02-14 23:44:27.082 [Thread-0] INFO  c.gateway.service.HealthCheckService - Stopping health check service
+2026-02-14 23:44:27.085 [main] INFO  com.gateway.netty.NettyServer - Shutting down Netty server
+2026-02-14 23:44:27.086 [main] INFO  com.gateway.netty.NettyServer - Netty server shut down successfully
+2026-02-14 23:44:27.090 [Thread-0] INFO  c.gateway.service.HealthCheckService - Health check service stopped
+2026-02-14 23:44:27.090 [Thread-0] INFO  com.gateway.service.LogService - Stopping log service
+2026-02-14 23:44:27.093 [Thread-0] INFO  com.gateway.service.LogService - Log service stopped
+2026-02-14 23:44:27.094 [Thread-0] INFO  c.g.database.DatabaseConnectionPool - Closing database connection pool
+2026-02-14 23:44:27.095 [Thread-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-14 23:44:27.111 [Thread-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-14 23:44:27.116 [Thread-0] INFO  com.gateway.Main - Graceful shutdown completed
+2026-02-14 23:44:43.312 [main] INFO  com.gateway.Main - Starting GatewayaaS...
+2026-02-14 23:44:43.313 [main] INFO  com.gateway.Main - Initializing database connection pool
+2026-02-14 23:44:43.314 [main] INFO  c.g.database.DatabaseConnectionPool - Initializing database connection pool
+2026-02-14 23:44:43.319 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-14 23:44:43.533 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2e1d27ba
+2026-02-14 23:44:43.534 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-14 23:44:43.535 [main] INFO  c.g.database.DatabaseConnectionPool - Database connection pool initialized successfully
+2026-02-14 23:44:43.535 [main] INFO  c.g.database.DatabaseConnectionPool - Running database migrations
+2026-02-14 23:44:43.540 [main] INFO  c.gateway.database.ManualMigrations - Running database migrations
+2026-02-14 23:44:43.541 [main] INFO  c.gateway.database.ManualMigrations - Creating UUID extension
+2026-02-14 23:44:43.545 [main] INFO  c.gateway.database.ManualMigrations - Creating users table
+2026-02-14 23:44:43.560 [main] INFO  c.gateway.database.ManualMigrations - Creating gateways table
+2026-02-14 23:44:43.564 [main] INFO  c.gateway.database.ManualMigrations - Creating routes table
+2026-02-14 23:44:43.571 [main] INFO  c.gateway.database.ManualMigrations - Creating route_targets table
+2026-02-14 23:44:43.577 [main] INFO  c.gateway.database.ManualMigrations - Creating request_logs table
+2026-02-14 23:44:43.582 [main] INFO  c.gateway.database.ManualMigrations - Database migrations completed successfully
+2026-02-14 23:44:43.582 [main] INFO  c.g.database.DatabaseConnectionPool - Database migrations completed successfully
+2026-02-14 23:44:43.591 [main] INFO  com.gateway.Main - Database initialized successfully
+2026-02-14 23:44:43.591 [main] INFO  com.gateway.Main - Starting background services
+2026-02-14 23:44:43.948 [main] INFO  c.gateway.service.HealthCheckService - Health check service started (interval: 30s, timeout: 5s)
+2026-02-14 23:44:43.956 [main] INFO  com.gateway.service.LogService - Log service started (batch size: 100, flush interval: 5s)
+2026-02-14 23:44:43.957 [main] INFO  com.gateway.Main - Background services started successfully
+2026-02-14 23:44:43.960 [main] INFO  com.gateway.Main - All systems ready, starting HTTP server
+2026-02-14 23:44:43.975 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:44:44.136 [main] INFO  com.gateway.netty.NettyServer - Starting Netty server on port 8080
+2026-02-14 23:44:44.136 [main] INFO  com.gateway.netty.NettyServer - Boss threads: 1, Worker threads: default
+2026-02-14 23:44:44.226 [main] INFO  com.gateway.netty.NettyServer - Gateway server started successfully on port 8080
+2026-02-14 23:45:05.121 [nioEventLoopGroup-3-2] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/api/test
+2026-02-14 23:45:05.124 [nioEventLoopGroup-3-2] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/api/test, method=GET
+2026-02-14 23:45:05.130 [nioEventLoopGroup-3-2] INFO  com.gateway.service.ProxyService - Forwarding GET /api/test to https://httpbin.org
+2026-02-14 23:45:06.248 [nioEventLoopGroup-3-2] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /api/test -> 404 (1122ms)
+2026-02-14 23:45:13.816 [nioEventLoopGroup-3-3] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/api/test
+2026-02-14 23:45:13.818 [nioEventLoopGroup-3-3] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/api/test, method=GET
+2026-02-14 23:45:13.823 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Forwarding GET /api/test to https://httpbin.org
+2026-02-14 23:45:13.950 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:45:15.422 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /api/test -> 404 (1604ms)
+2026-02-14 23:45:43.949 [pool-1-thread-2] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:46:13.606 [nioEventLoopGroup-3-5] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:46:13.607 [nioEventLoopGroup-3-5] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:46:13.608 [nioEventLoopGroup-3-5] WARN  com.gateway.service.ProxyService - No route found for gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:46:13.951 [pool-1-thread-2] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:46:43.951 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:47:13.953 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:47:14.227 [nioEventLoopGroup-3-7] INFO  com.gateway.netty.RouterHandler - POST /api/v1/gateways/d914aa60-0cbc-4b7c-8348-219736db7b51/routes
+2026-02-14 23:47:14.318 [nioEventLoopGroup-3-7] INFO  c.gateway.repository.RouteRepository - Created route: GET /get for gateway: d914aa60-0cbc-4b7c-8348-219736db7b51
+2026-02-14 23:47:14.319 [nioEventLoopGroup-3-7] INFO  c.g.n.h.route.CreateRouteHandler - Route created: GET /get for gateway: d914aa60-0cbc-4b7c-8348-219736db7b51
+2026-02-14 23:47:43.951 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:48:13.950 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 3 targets
+2026-02-14 23:48:34.728 [nioEventLoopGroup-3-1] INFO  com.gateway.netty.RouterHandler - POST /api/v1/routes/913700c1-e81b-4998-a6de-131469f91f41/targets
+2026-02-14 23:48:34.738 [nioEventLoopGroup-3-1] INFO  c.g.repository.TargetRepository - Created target: https://httpbin.org for route: 913700c1-e81b-4998-a6de-131469f91f41
+2026-02-14 23:48:34.738 [nioEventLoopGroup-3-1] INFO  c.g.n.h.route.AddTargetHandler - Target added: https://httpbin.org for route: 913700c1-e81b-4998-a6de-131469f91f41
+2026-02-14 23:48:43.954 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 4 targets
+2026-02-14 23:48:44.358 [pool-2-thread-7] INFO  c.g.repository.TargetRepository - Updated target 9ab63b32-8a1b-42ae-97e1-e6523a596b79 health status to: healthy
+2026-02-14 23:48:44.359 [pool-2-thread-7] INFO  c.gateway.service.HealthCheckService - Target is healthy: https://httpbin.org
+2026-02-14 23:49:02.409 [nioEventLoopGroup-3-3] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:49:02.410 [nioEventLoopGroup-3-3] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:49:02.411 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:49:04.008 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1598ms)
+2026-02-14 23:49:13.950 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 4 targets
+2026-02-14 23:49:42.211 [nioEventLoopGroup-3-5] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:49:42.212 [nioEventLoopGroup-3-5] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:49:42.217 [nioEventLoopGroup-3-5] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:49:43.785 [nioEventLoopGroup-3-5] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1572ms)
+2026-02-14 23:49:43.949 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 4 targets
+2026-02-14 23:50:06.189 [nioEventLoopGroup-3-7] INFO  com.gateway.netty.RouterHandler - POST /api/v1/routes/913700c1-e81b-4998-a6de-131469f91f41/targets
+2026-02-14 23:50:06.200 [nioEventLoopGroup-3-7] INFO  c.g.repository.TargetRepository - Created target: https://postman-echo.com for route: 913700c1-e81b-4998-a6de-131469f91f41
+2026-02-14 23:50:06.201 [nioEventLoopGroup-3-7] INFO  c.g.n.h.route.AddTargetHandler - Target added: https://postman-echo.com for route: 913700c1-e81b-4998-a6de-131469f91f41
+2026-02-14 23:50:13.950 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 5 targets
+2026-02-14 23:50:14.271 [pool-2-thread-10] INFO  c.g.repository.TargetRepository - Updated target 77486f23-74be-4206-b4e0-70721e1e8942 health status to: healthy
+2026-02-14 23:50:14.272 [pool-2-thread-10] INFO  c.gateway.service.HealthCheckService - Target is healthy: https://postman-echo.com
+2026-02-14 23:50:17.083 [nioEventLoopGroup-3-1] INFO  com.gateway.netty.RouterHandler - POST /api/v1/routes/913700c1-e81b-4998-a6de-131469f91f41/targets
+2026-02-14 23:50:17.093 [nioEventLoopGroup-3-1] INFO  c.g.repository.TargetRepository - Created target: https://jsonplaceholder.typicode.com for route: 913700c1-e81b-4998-a6de-131469f91f41
+2026-02-14 23:50:17.093 [nioEventLoopGroup-3-1] INFO  c.g.n.h.route.AddTargetHandler - Target added: https://jsonplaceholder.typicode.com for route: 913700c1-e81b-4998-a6de-131469f91f41
+2026-02-14 23:50:43.951 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:50:43.987 [pool-2-thread-6] INFO  c.g.repository.TargetRepository - Updated target b3c31ad4-4c18-48a1-a22e-32ef80e22afa health status to: healthy
+2026-02-14 23:50:43.987 [pool-2-thread-6] INFO  c.gateway.service.HealthCheckService - Target is healthy: https://jsonplaceholder.typicode.com
+2026-02-14 23:50:49.288 [nioEventLoopGroup-3-3] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:50:49.289 [nioEventLoopGroup-3-3] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:50:49.290 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:50:51.116 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1827ms)
+2026-02-14 23:51:13.795 [nioEventLoopGroup-3-4] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:13.797 [nioEventLoopGroup-3-4] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:13.799 [nioEventLoopGroup-3-4] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:13.949 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:51:15.088 [nioEventLoopGroup-3-4] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1291ms)
+2026-02-14 23:51:15.629 [nioEventLoopGroup-3-5] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:15.630 [nioEventLoopGroup-3-5] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:15.634 [nioEventLoopGroup-3-5] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:17.328 [nioEventLoopGroup-3-5] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1697ms)
+2026-02-14 23:51:17.860 [nioEventLoopGroup-3-6] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:17.863 [nioEventLoopGroup-3-6] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:17.871 [nioEventLoopGroup-3-6] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:19.735 [nioEventLoopGroup-3-6] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1872ms)
+2026-02-14 23:51:20.257 [nioEventLoopGroup-3-7] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:20.258 [nioEventLoopGroup-3-7] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:20.262 [nioEventLoopGroup-3-7] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:21.632 [nioEventLoopGroup-3-7] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1372ms)
+2026-02-14 23:51:22.152 [nioEventLoopGroup-3-8] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:22.153 [nioEventLoopGroup-3-8] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:22.157 [nioEventLoopGroup-3-8] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:24.503 [nioEventLoopGroup-3-8] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (2350ms)
+2026-02-14 23:51:25.027 [nioEventLoopGroup-3-1] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:25.028 [nioEventLoopGroup-3-1] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:25.031 [nioEventLoopGroup-3-1] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:26.184 [nioEventLoopGroup-3-1] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1155ms)
+2026-02-14 23:51:43.950 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:51:49.663 [nioEventLoopGroup-3-2] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:49.665 [nioEventLoopGroup-3-2] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:49.667 [nioEventLoopGroup-3-2] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:50.825 [nioEventLoopGroup-3-2] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1160ms)
+2026-02-14 23:51:51.350 [nioEventLoopGroup-3-3] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:51.351 [nioEventLoopGroup-3-3] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:51.355 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:53.186 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1834ms)
+2026-02-14 23:51:53.707 [nioEventLoopGroup-3-4] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:53.708 [nioEventLoopGroup-3-4] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:53.712 [nioEventLoopGroup-3-4] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:54.811 [nioEventLoopGroup-3-4] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1102ms)
+2026-02-14 23:51:55.328 [nioEventLoopGroup-3-5] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:55.332 [nioEventLoopGroup-3-5] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:55.338 [nioEventLoopGroup-3-5] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:56.459 [nioEventLoopGroup-3-5] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1127ms)
+2026-02-14 23:51:56.990 [nioEventLoopGroup-3-6] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:56.991 [nioEventLoopGroup-3-6] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:56.997 [nioEventLoopGroup-3-6] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:58.178 [nioEventLoopGroup-3-6] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1187ms)
+2026-02-14 23:51:58.686 [nioEventLoopGroup-3-7] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:51:58.687 [nioEventLoopGroup-3-7] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:51:58.688 [nioEventLoopGroup-3-7] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:51:59.975 [nioEventLoopGroup-3-7] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1288ms)
+2026-02-14 23:52:13.949 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:52:43.955 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:52:48.431 [nioEventLoopGroup-3-8] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:52:48.432 [nioEventLoopGroup-3-8] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:52:48.436 [nioEventLoopGroup-3-8] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:52:50.271 [nioEventLoopGroup-3-8] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1838ms)
+2026-02-14 23:52:50.792 [nioEventLoopGroup-3-1] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:52:50.793 [nioEventLoopGroup-3-1] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:52:50.796 [nioEventLoopGroup-3-1] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:52:52.211 [nioEventLoopGroup-3-1] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1418ms)
+2026-02-14 23:52:52.760 [nioEventLoopGroup-3-2] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:52:52.760 [nioEventLoopGroup-3-2] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:52:52.763 [nioEventLoopGroup-3-2] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:52:53.897 [nioEventLoopGroup-3-2] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1136ms)
+2026-02-14 23:52:54.422 [nioEventLoopGroup-3-3] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:52:54.423 [nioEventLoopGroup-3-3] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:52:54.425 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:52:55.536 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1113ms)
+2026-02-14 23:52:56.060 [nioEventLoopGroup-3-4] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:52:56.065 [nioEventLoopGroup-3-4] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:52:56.070 [nioEventLoopGroup-3-4] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:52:57.283 [nioEventLoopGroup-3-4] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1218ms)
+2026-02-14 23:52:57.803 [nioEventLoopGroup-3-5] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:52:57.804 [nioEventLoopGroup-3-5] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:52:57.807 [nioEventLoopGroup-3-5] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:52:58.915 [nioEventLoopGroup-3-5] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1111ms)
+2026-02-14 23:53:10.770 [nioEventLoopGroup-3-7] INFO  com.gateway.netty.RouterHandler - GET /api/v1/routes/913700c1-e81b-4998-a6de-131469f91f41/targets
+2026-02-14 23:53:13.949 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:53:43.950 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:54:08.491 [nioEventLoopGroup-3-8] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:54:08.492 [nioEventLoopGroup-3-8] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:54:08.494 [nioEventLoopGroup-3-8] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:54:10.054 [nioEventLoopGroup-3-8] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1562ms)
+2026-02-14 23:54:10.372 [nioEventLoopGroup-3-1] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:54:10.373 [nioEventLoopGroup-3-1] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:54:10.376 [nioEventLoopGroup-3-1] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:54:11.515 [nioEventLoopGroup-3-1] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1141ms)
+2026-02-14 23:54:11.825 [nioEventLoopGroup-3-2] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:54:11.826 [nioEventLoopGroup-3-2] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:54:11.827 [nioEventLoopGroup-3-2] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:54:12.949 [nioEventLoopGroup-3-2] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1123ms)
+2026-02-14 23:54:13.258 [nioEventLoopGroup-3-3] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:54:13.258 [nioEventLoopGroup-3-3] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:54:13.259 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:54:13.949 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:54:14.384 [nioEventLoopGroup-3-3] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1126ms)
+2026-02-14 23:54:14.699 [nioEventLoopGroup-3-4] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:54:14.699 [nioEventLoopGroup-3-4] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:54:14.700 [nioEventLoopGroup-3-4] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:54:15.820 [nioEventLoopGroup-3-4] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1120ms)
+2026-02-14 23:54:16.142 [nioEventLoopGroup-3-5] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:54:16.143 [nioEventLoopGroup-3-5] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:54:16.146 [nioEventLoopGroup-3-5] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:54:17.558 [nioEventLoopGroup-3-5] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1414ms)
+2026-02-14 23:54:17.895 [nioEventLoopGroup-3-6] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:54:17.896 [nioEventLoopGroup-3-6] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:54:17.901 [nioEventLoopGroup-3-6] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:54:18.990 [nioEventLoopGroup-3-6] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1093ms)
+2026-02-14 23:54:19.326 [nioEventLoopGroup-3-7] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:54:19.331 [nioEventLoopGroup-3-7] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:54:19.335 [nioEventLoopGroup-3-7] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:54:20.530 [nioEventLoopGroup-3-7] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (1198ms)
+2026-02-14 23:54:20.854 [nioEventLoopGroup-3-8] INFO  com.gateway.netty.RouterHandler - GET /gateway/d914aa60-0cbc-4b7c-8348-219736db7b51/get
+2026-02-14 23:54:20.864 [nioEventLoopGroup-3-8] INFO  c.g.n.handlers.proxy.ProxyHandler - Proxying request: gateway=d914aa60-0cbc-4b7c-8348-219736db7b51, path=/get, method=GET
+2026-02-14 23:54:20.867 [nioEventLoopGroup-3-8] INFO  com.gateway.service.ProxyService - Forwarding GET /get to https://httpbin.org
+2026-02-14 23:54:21.858 [nioEventLoopGroup-3-8] INFO  com.gateway.service.ProxyService - Proxied request completed: GET /get -> 200 (994ms)
+2026-02-14 23:54:43.954 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:55:13.949 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:55:43.949 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:56:13.949 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:56:43.955 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:57:13.950 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:57:43.949 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:58:13.952 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets
+2026-02-14 23:58:43.949 [pool-1-thread-3] INFO  c.gateway.service.HealthCheckService - Performing health checks on 6 targets

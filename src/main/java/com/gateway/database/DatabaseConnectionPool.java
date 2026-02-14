@@ -3,7 +3,6 @@ package com.gateway.database;
 import com.gateway.config.AppConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,14 +43,8 @@ public class DatabaseConnectionPool {
     private static void runMigrations() {
         logger.info("Running database migrations");
 
-        try {
-            Flyway flyway = Flyway.configure()
-                    .dataSource(dataSource)
-                    .locations("classpath:db/migration")
-                    .baselineOnMigrate(true)
-                    .load();
-
-            flyway.migrate();
+        try (Connection conn = dataSource.getConnection()) {
+            ManualMigrations.runMigrations(conn);
             logger.info("Database migrations completed successfully");
         } catch (Exception e) {
             logger.error("Failed to run database migrations", e);
