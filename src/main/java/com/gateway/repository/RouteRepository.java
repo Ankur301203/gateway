@@ -93,6 +93,46 @@ public class RouteRepository {
         return Optional.empty();
     }
 
+    // NEW METHOD - add this
+    public Optional<Route> findByGatewayAndPathMatchAndMethod(UUID gatewayId, String requestPath, String method)
+            throws SQLException {
+
+        // First try exact match using the OLD method
+        Optional<Route> exactMatch = findByGatewayAndPathAndMethod(gatewayId, requestPath, method);
+        if (exactMatch.isPresent()) {
+            logger.debug("Found exact route match for path: {}", requestPath);
+            return exactMatch;
+        }
+
+        // Then try prefix match - find longest matching prefix
+        String sql = "SELECT * FROM routes " +
+                "WHERE gateway_id = ? " +
+                "AND ? LIKE CONCAT(path, '%') " +
+                "AND method = ? " +
+                "ORDER BY LENGTH(path) DESC " +
+                "LIMIT 1";
+
+        try (Connection conn = DatabaseConnectionPool.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setObject(1, gatewayId);
+            stmt.setString(2, requestPath);
+            stmt.setString(3, method);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Route route = mapRow(rs);
+                logger.debug("Found prefix route match: {} for request path: {}",
+                        route.getPath(), requestPath);
+                return Optional.of(route);
+            }
+        }
+
+        logger.debug("No route match found for path: {}", requestPath);
+        return Optional.empty();
+    }
+
     public boolean delete(UUID id) throws SQLException {
         String sql = "DELETE FROM routes WHERE id = ?";
 

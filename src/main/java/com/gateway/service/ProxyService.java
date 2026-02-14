@@ -21,7 +21,7 @@ public class ProxyService {
 
     private final RouteRepository routeRepo = new RouteRepository();
     private final TargetRepository targetRepo = new TargetRepository();
-    private final LoadBalancerService loadBalancer = new LoadBalancerService();
+    private final LoadBalancerService loadBalancer = LoadBalancerService.getInstance();
     private final LogService logService = LogService.getInstance();
 
     private final HttpClient httpClient;
@@ -40,7 +40,7 @@ public class ProxyService {
         UUID gatewayUuid = UUID.fromString(gatewayId);
 
         // 1. Find matching route
-        Optional<Route> routeOpt = routeRepo.findByGatewayAndPathAndMethod(
+        Optional<Route> routeOpt = routeRepo.findByGatewayAndPathMatchAndMethod(
                 gatewayUuid, path, method
         );
 

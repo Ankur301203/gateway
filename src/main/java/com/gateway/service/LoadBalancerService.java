@@ -12,8 +12,19 @@ import java.util.concurrent.atomic.AtomicLong;
 public class LoadBalancerService {
     private static final Logger logger = LoggerFactory.getLogger(LoadBalancerService.class);
 
+    // Singleton instance
+    private static final LoadBalancerService INSTANCE = new LoadBalancerService();
+
     // Route ID -> Counter
     private final ConcurrentHashMap<UUID, AtomicLong> counters = new ConcurrentHashMap<>();
+
+    // Private constructor for singleton
+    private LoadBalancerService() {}
+
+    // Get singleton instance
+    public static LoadBalancerService getInstance() {
+        return INSTANCE;
+    }
 
     public RouteTarget selectTarget(UUID routeId, List<RouteTarget> targets) {
         if (targets == null || targets.isEmpty()) {
