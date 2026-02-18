@@ -3,7 +3,7 @@
 2026-02-14 23:21:21.875 [main] INFO  c.g.database.DatabaseConnectionPool - Initializing database connection pool
 2026-02-14 23:21:21.883 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
 2026-02-14 23:21:22.068 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2e1d27ba
-2026-02-14 23:21:22.069 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-14 23:21:2bbb2.069 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
 2026-02-14 23:21:22.069 [main] INFO  c.g.database.DatabaseConnectionPool - Database connection pool initialized successfully
 2026-02-14 23:21:22.069 [main] INFO  c.g.database.DatabaseConnectionPool - Running database migrations
 2026-02-14 23:21:22.071 [main] INFO  c.gateway.database.ManualMigrations - Running database migrations
