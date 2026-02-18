@@ -635,3 +635,8 @@
 2026-02-18 22:47:41.655 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 7 targets
 2026-02-18 22:48:11.655 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 7 targets
 2026-02-18 22:48:41.654 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 7 targets
+2026-02-18 22:49:11.654 [pool-1-thread-1] INFO  c.gateway.service.HealthCheckService - Performing health checks on 7 targets
+2026-02-18 22:49:41.655 [pool-1-thread-5] INFO  c.gateway.service.HealthCheckService - Performing health checks on 7 targets
+2026-02-18 22:50:11.654 [pool-1-thread-5] INFO  c.gateway.service.HealthCheckService - Performing health checks on 7 targets
+2026-02-18 22:50:41.654 [pool-1-thread-5] INFO  c.gateway.service.HealthCheckService - Performing health checks on 7 targets
+2026-02-18 22:51:11.655 [pool-1-thread-5] INFO  c.gateway.service.HealthCheckService - Performing health checks on 7 targets
