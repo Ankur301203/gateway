@@ -2,11 +2,12 @@ package com.gateway.netty;
 
 import com.gateway.http.RequestContext;
 import com.gateway.http.ResponseBuilder;
+import com.gateway.netty.handlers.AsyncHandler;
 import com.gateway.netty.handlers.BaseHandler;
 import com.gateway.netty.handlers.auth.*;
 import com.gateway.netty.handlers.gateway.*;
 import com.gateway.netty.handlers.logs.GetLogsHandler;
-import com.gateway.netty.handlers.proxy.ProxyHandler;
+import com.gateway.netty.handlers.route.ProxyHandler;
 import com.gateway.netty.handlers.route.*;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -36,7 +37,12 @@ public class RouterHandler extends SimpleChannelInboundHandler<FullHttpRequest> 
                 return;
             }
 
-            // Execute handler
+            if (handler instanceof AsyncHandler asyncHandler) {
+                asyncHandler.handleAsync(ctx, reqCtx);
+                return;
+            }
+
+            // Execute handler (sync)
             FullHttpResponse response = handler.handle(reqCtx);
 
             // Send response
