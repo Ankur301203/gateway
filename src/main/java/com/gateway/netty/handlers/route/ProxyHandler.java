@@ -9,6 +9,8 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +56,11 @@ public class ProxyHandler extends BaseHandler implements AsyncHandler {
         logger.info("Proxying request: gateway={}, path={}, method={}",
                 gatewayId, targetPath, ctx.getMethod());
 
+        String clientIp = extractClientIp(nettyCtx, ctx);
+        if (clientIp != null && ctx.getHeader("x-client-ip") == null) {
+            ctx.getHeaders().put("x-client-ip", clientIp);
+        }
+
         proxyService.forwardAsync(
                 gatewayId,
                 targetPath,
@@ -90,5 +97,28 @@ public class ProxyHandler extends BaseHandler implements AsyncHandler {
                     }
                 }
         );
+    }
+
+    private String extractClientIp(ChannelHandlerContext nettyCtx, RequestContext ctx) {
+        String forwardedFor = ctx.getHeader("x-forwarded-for");
+        if (forwardedFor != null && !forwardedFor.isBlank()) {
+            String[] parts = forwardedFor.split(",");
+            if (parts.length > 0) {
+                String candidate = parts[0].trim();
+                if (!candidate.isEmpty()) {
+                    return candidate;
+                }
+            }
+        }
+
+        SocketAddress remote = nettyCtx.channel().remoteAddress();
+        if (remote instanceof InetSocketAddress inetSocketAddress) {
+            if (inetSocketAddress.getAddress() != null) {
+                return inetSocketAddress.getAddress().getHostAddress();
+            }
+            return inetSocketAddress.getHostString();
+        }
+
+        return remote != null ? remote.toString() : null;
     }
 }

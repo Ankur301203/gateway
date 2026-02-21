@@ -44,6 +44,7 @@ public class ProxyServiceNetty {
     private final TargetRepository targetRepo = new TargetRepository();
     private final LoadBalancerService loadBalancer = LoadBalancerService.getInstance();
     private final LogService logService = LogService.getInstance();
+    private final RateLimitService rateLimitService = RateLimitService.getInstance();
 
     public void forwardAsync(String gatewayId, String path, String method,
                              Map<String, String> headers, String body,
@@ -65,13 +66,30 @@ public class ProxyServiceNetty {
 
             Route route = routeOpt.get();
 
+            String clientKey = resolveClientKey(headers);
+            RateLimitService.RateLimitResult rateLimit =
+                    rateLimitService.check(gatewayUuid, route.getId(), clientKey);
+            Map<String, String> rateLimitHeaders = rateLimit.toHeaders();
+
+            if (rateLimit.enabled && !rateLimit.allowed) {
+                logger.warn("Rate limit exceeded: gateway={}, route={}, client={}",
+                        gatewayUuid, route.getId(), clientKey);
+                logService.logAsync(gatewayUuid, route.getId(), null,
+                        method, path, 429, 0, "Rate limit exceeded");
+                callback.onSuccess(new ProxyResult(429,
+                        "{\"error\": \"Rate limit exceeded\"}",
+                        rateLimitHeaders));
+                return;
+            }
+
             List<RouteTarget> targets = targetRepo.findHealthyByRouteId(route.getId());
             if (targets.isEmpty()) {
                 logger.warn("No healthy targets for route={}", route.getId());
                 logService.logAsync(gatewayUuid, route.getId(), null,
                         method, path, 503, 0, "No healthy targets");
                 callback.onSuccess(new ProxyResult(503,
-                        "{\"error\": \"Service unavailable - no healthy backends\"}", Map.of()));
+                        "{\"error\": \"Service unavailable - no healthy backends\"}",
+                        rateLimitHeaders));
                 return;
             }
 
@@ -135,6 +153,7 @@ public class ProxyServiceNetty {
                                             responseHeaders.put(key, entry.getValue());
                                         }
                                     });
+                                    rateLimitHeaders.forEach(responseHeaders::putIfAbsent);
 
                                     String responseBody = msg.content().toString(CharsetUtil.UTF_8);
                                     callback.onSuccess(new ProxyResult(
@@ -234,6 +253,31 @@ public class ProxyServiceNetty {
                 method, path, 502, (int) latency, error.getMessage());
 
         callback.onFailure(error);
+    }
+
+    private String resolveClientKey(Map<String, String> headers) {
+        String apiKey = headers.get("x-api-key");
+        if (apiKey != null && !apiKey.isBlank()) {
+            return "api:" + apiKey.trim();
+        }
+
+        String forwardedFor = headers.get("x-forwarded-for");
+        if (forwardedFor != null && !forwardedFor.isBlank()) {
+            String[] parts = forwardedFor.split(",");
+            if (parts.length > 0) {
+                String candidate = parts[0].trim();
+                if (!candidate.isEmpty()) {
+                    return "ip:" + candidate;
+                }
+            }
+        }
+
+        String clientIp = headers.get("x-client-ip");
+        if (clientIp != null && !clientIp.isBlank()) {
+            return "ip:" + clientIp.trim();
+        }
+
+        return "unknown";
     }
 
     private static SslContext buildSslContext() {
